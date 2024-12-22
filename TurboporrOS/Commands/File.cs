@@ -8,9 +8,9 @@ using Sys = Cosmos.System;
 
 namespace TurboporrOS.Commands
 {
-    internal class File : Command
+    public class File : Command
     {
-        public File(String name) : base(name) { }
+        public File (String name) : base(name) { }
 
         public override String execute(string[] args)
         {
@@ -18,7 +18,6 @@ namespace TurboporrOS.Commands
             {
                 return "Expected an argument";
             }
-
             String response = "";
             switch (args[0])
             {
@@ -36,7 +35,7 @@ namespace TurboporrOS.Commands
 
                     break;
 
-                case "dfile":
+                case "rfile":
                     try
                     {
                         Sys.FileSystem.VFS.VFSManager.DeleteFile(args[1]);
@@ -67,7 +66,7 @@ namespace TurboporrOS.Commands
                     try
                     {
                         Sys.FileSystem.VFS.VFSManager.DeleteDirectory(args[1], true);
-                        response = "Directory " + args[1] + " deleted";
+                        response = "Directory " + args[1] + " removed";
                     }
                     catch (Exception ex)
                     {
@@ -83,9 +82,18 @@ namespace TurboporrOS.Commands
                         FileStream fs = (FileStream)Sys.FileSystem.VFS.VFSManager.GetFile(args[1]).GetFileStream();
                         if (fs.CanWrite)
                         {
-                            Byte[] data = Encoding.ASCII.GetBytes(args[2]);
+                            int ctr = 0;
+                            StringBuilder sb = new StringBuilder();
+                            foreach (String s in args) { 
+                                if (ctr>1)
+                                    sb.Append(s+' ');
+                                ++ctr;  
+                            }
+                            Byte[] data = Encoding.ASCII.GetBytes(sb.ToString());
                             fs.Write(data, 0, data.Length);
                             fs.Close();
+
+                            response = "Data written to " + args[1];
                         }
                         else
                         {
