@@ -89,7 +89,8 @@ namespace TurboporrOS.Commands
                                     sb.Append(s+' ');
                                 ++ctr;  
                             }
-                            Byte[] data = Encoding.ASCII.GetBytes(sb.ToString());
+                            string txt = sb.ToString();
+                            Byte[] data = Encoding.ASCII.GetBytes(txt.Substring(0, txt.Length - 1));
                             fs.Write(data, 0, data.Length);
                             fs.Close();
 
