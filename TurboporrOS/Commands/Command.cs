@@ -9,6 +9,8 @@ namespace TurboporrOS.Commands
     public class Command
     {
         public readonly string name;
-        public Command(String name) { this.name = name; }
+        public Command (String name) { this.name = name; }
+
+        public virtual string execute(string[] args) { return ""; }
     }
 }
