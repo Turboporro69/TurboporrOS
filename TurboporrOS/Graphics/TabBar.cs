@@ -22,15 +22,13 @@ namespace TurboporrOS.Graphics
             canvas.DrawRectangle(this.pen, 0, this.rows - 100, this.columns - 2, 99);
             canvas.DrawRectangle(this.pen, 0, this.rows - 100, 100, 99);
             canvas.DrawLine(this.pen, 25, this.rows - 90, 75, this.rows - 10);
-            Console.WriteLine("TabBar created");
 
         }
         public void tryProcessTabBarClick(Int32 mouseX, Int32 mouseY)
         {
             if (new Rectangle(mouseX, mouseY, 1, 1).IntersectsWith(new Rectangle(0, this.rows - 100, 100, 99)))
-            
-                Console.Beep();
 
+                new Tab(0, 0);
         }
     }
 }

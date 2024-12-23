@@ -32,8 +32,6 @@ namespace TurboporrOS
                 Kernel.gui.handleGUIInputs();
                 Kernel.gui.canvas.Display();
 
-                
-
                 return;
             }
 

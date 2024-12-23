@@ -74,8 +74,17 @@ namespace TurboporrOS.Graphics
 
             }
 
-            if (MouseManager.MouseState == MouseState.Left&&this.prevMouseState!=MouseState.Left)
-                System.Console.Beep();
+            if (MouseManager.MouseState == MouseState.Left && this.prevMouseState != MouseState.Left)
+            {
+                Tab.tryProcessTabLMBDown((Int32)MouseManager.X, (Int32)MouseManager.Y);
+                this.tabBar.tryProcessTabBarClick((Int32)MouseManager.X, (Int32)MouseManager.Y);
+            }
+
+            else if (MouseManager.MouseState==MouseState.None&&this.prevMouseState==MouseState.Left)
+            {
+                Tab.tryProcessTabLMBRelease((Int32)MouseManager.X, (Int32)MouseManager.Y);
+            }
+
             this.prevMouseState = MouseManager.MouseState;
 
         }
