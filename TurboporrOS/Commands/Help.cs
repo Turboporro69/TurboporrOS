@@ -18,7 +18,7 @@ namespace TurboporrOS.Commands
                 "file rfile - Removes a file\n" +
                 "file cdir - Creates a directory\n" +
                 "file rdir - Removes a directory\n" +
-                "launchgui - Launches the GUI (Currently not working)\n";
+                "launchgui - Launches the GUI\n";
         }
     }
 }

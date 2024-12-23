@@ -12,7 +12,7 @@ namespace TurboporrOS.Graphics
 {
     public class GUI
     {
-        private Canvas canvas;
+        public Canvas canvas;
         private Pen pen;
         private List<Tuple<Sys.Graphics.Point, Color>> savedPixels;
         private TabBar tabBar;
@@ -49,10 +49,14 @@ namespace TurboporrOS.Graphics
                 {
                     new Sys.Graphics.Point((Int32)MouseManager.X, (Int32)MouseManager.Y),
                     new Sys.Graphics.Point((Int32)MouseManager.X + 1, (Int32)MouseManager.Y),
-                    new Sys.Graphics.Point((Int32)MouseManager.X-1, (Int32)MouseManager.Y),
+                    new Sys.Graphics.Point((Int32)MouseManager.X - 1, (Int32)MouseManager.Y),
                     new Sys.Graphics.Point((Int32)MouseManager.X, (Int32)MouseManager.Y + 1),
-                    new Sys.Graphics.Point((Int32)MouseManager.X, (Int32)MouseManager.Y - 1)
-                    
+                    new Sys.Graphics.Point((Int32)MouseManager.X, (Int32)MouseManager.Y - 1),
+                    new Sys.Graphics.Point((Int32)MouseManager.X + 2, (Int32)MouseManager.Y),
+                    new Sys.Graphics.Point((Int32)MouseManager.X - 2, (Int32)MouseManager.Y),
+                    new Sys.Graphics.Point((Int32)MouseManager.X, (Int32)MouseManager.Y + 2),
+                    new Sys.Graphics.Point((Int32)MouseManager.X, (Int32)MouseManager.Y - 2)
+
 
                 };
 

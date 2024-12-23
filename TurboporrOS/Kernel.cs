@@ -20,7 +20,7 @@ namespace TurboporrOS
             Sys.FileSystem.VFS.VFSManager.RegisterVFS(this.vfs);
             this.commandManager = new CommandManager();
 
-            Console.WriteLine("Welcome to TurboporrOS, an operating system made with C# for High Seas. Use help for start");
+            Console.WriteLine("Welcome to TurboporrOS, an operating system made with C# for High Seas.\nUse help for start");
      
         }
 
@@ -28,8 +28,12 @@ namespace TurboporrOS
         {
             if (Kernel.gui != null)
             {
+
                 Kernel.gui.handleGUIInputs();
-            
+                Kernel.gui.canvas.Display();
+
+                
+
                 return;
             }
 
@@ -37,6 +41,8 @@ namespace TurboporrOS
             String input = Console.ReadLine();
             response = this.commandManager.processInput(input);
             Console.WriteLine(response);
+
+
         }
     }
 }
