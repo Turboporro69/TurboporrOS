@@ -20,7 +20,7 @@ namespace TurboporrOS
             Sys.FileSystem.VFS.VFSManager.RegisterVFS(this.vfs);
             this.commandManager = new CommandManager();
 
-            Console.WriteLine("Welcome to TurboporrOS, an operating system made with C# for High Seas");
+            Console.WriteLine("Welcome to TurboporrOS, an operating system made with C# for High Seas. Use help for start");
      
         }
 

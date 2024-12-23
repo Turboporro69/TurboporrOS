@@ -12,7 +12,13 @@ namespace TurboporrOS.Commands
 
         public override string execute(string[] args)
         {
-            return "Hello World";
+            return "Available commands:\n" +
+                "help - Shows this message\n" +
+                "file cfile - Creates a file\n" +
+                "file rfile - Removes a file\n" +
+                "file cdir - Creates a directory\n" +
+                "file rdir - Removes a directory\n" +
+                "launchgui - Launches the GUI (Currently not working)\n";
         }
     }
 }
