@@ -7,6 +7,7 @@ using Cosmos.System.Graphics.Fonts;
 using Cosmos.System.Graphics;
 using System.Drawing;
 using Cosmos.System;
+using TurboporrOS.Commands;
 
 
 namespace TurboporrOS.Graphics
@@ -16,17 +17,20 @@ namespace TurboporrOS.Graphics
         public Pen consoleTextPen;
         public Font consoleTextFont;
 
-        public Text inputText, responseText;
+        private Text inputText, responseText;
+        private CommandManager cm;
 
         private StringBuilder input;
+        
         public ConsoleTab(Int32 _x, Int32 _y) : base(_x, _y)
         {
             this.consoleTextPen = new Pen(Color.White);
             this.consoleTextFont = new Font(Text.defaultFontData);
 
             this.inputText = new Text(0, Tab.defaultWindowSize-(Tab.windowTopPartSize+this.consoleTextFont.bpl+1), "_", this.consoleTextFont, this.consoleTextPen);
-            this.responseText=new Text(0,(this.consoleTextFont.bpl+1)*2,"", this.consoleTextFont,this.consoleTextPen);
+            this.responseText=new Text(0,(this.consoleTextFont.bpl+1)*2,"", this.consoleTextFont,this.consoleTextPen,true);
             this.input = new StringBuilder();
+            this.cm = new CommandManager();
 
             this.addComponent(new Text(0,0, "TurboporrOS Console", this.consoleTextFont, this.consoleTextPen));
             this.addComponent(new Text(0, 17, "Type 'help' for help", this.consoleTextFont, this.consoleTextPen));
@@ -38,6 +42,8 @@ namespace TurboporrOS.Graphics
         {
             if (keyData.Key==ConsoleKeyEx.Enter)
             {
+                this.responseText.text=this.cm.processInput(this.input.ToString());
+                this.responseText.draw(this);
                 this.input.Clear();
                 this.inputText.text = "_";
                 this.inputText.draw(this);

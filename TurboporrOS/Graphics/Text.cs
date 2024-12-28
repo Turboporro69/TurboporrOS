@@ -16,21 +16,24 @@ namespace TurboporrOS.Graphics
         public Font font;
         public String text;
         public Pen pen;
+        public Boolean multiLine;
 
         private List<Tuple<Sys.Graphics.Point, Color>> pixelData;
-        public Text(Int32 X, Int32 Y, String text, Font font, Pen pen, Byte size = 1) : base(X, Y, size)
+        public Text(Int32 X, Int32 Y, String text, Font font, Pen pen,Boolean multiLine=false, Byte size = 1) : base(X, Y, size)
         {
             this.text = text;
             this.font = font;
             this.pen = pen;
             this.pixelData = new List<Tuple<Sys.Graphics.Point, Color>>();
+            this.multiLine = multiLine;
         }
 
         public override void draw(Tab sender)
         {
             foreach (Tuple<Sys.Graphics.Point, Color> tuple in this.pixelData)
                 Kernel.gui.canvas.DrawPoint(new Pen(tuple.Item2), tuple.Item1);
-            UInt16 ctr = 0;
+            UInt16 ctr=0, ctr0 = 0;
+            this.pixelData.Clear();
             foreach (Char c in this.text)
             {
                 if (c == ' ')
@@ -39,12 +42,29 @@ namespace TurboporrOS.Graphics
                     continue;
                 }
 
+                if (c=='\n')
+                {
+                    ctr0 += this.font.bpl;
+                    ctr=0;
+                    continue;
+                }
+
                 foreach (Tuple<UInt16, UInt16> pixelData in this.font.getDataAt((UInt16)(Text.characters.IndexOf(c))))
                 {
-                    Kernel.gui.canvas.DrawPoint(this.pen, new Sys.Graphics.Point(pixelData.Item1 + ctr + sender.X + this.X, pixelData.Item2 + sender.Y + Tab.windowTopPartSize + this.Y));
+                    Sys.Graphics.Point p = new Sys.Graphics.Point(pixelData.Item1 + ctr + sender.X + this.X, pixelData.Item2 + sender.Y + Tab.windowTopPartSize + this.Y+ctr0);
+
+                    this.pixelData.Add(new Tuple<Sys.Graphics.Point, Color>(p,Kernel.gui.canvas.GetPointColor(p.X,p.Y)));
+                    Kernel.gui.canvas.DrawPoint(this.pen,p);
+
                 }
                 ctr += this.font.bpl;
-                if ((ctr + this.font.bpl) > Tab.defaultWindowSize) break;
+                if ((ctr + (this.font.bpl*2)) > Tab.defaultWindowSize) {
+                    if (!(multiLine)) break;
+                    if((ctr0+(this.font.bpl*3))>(Tab.defaultWindowSize-Tab.windowTopPartSize)) break;
+
+                    ctr0+=this.font.bpl;
+                    ctr=0;
+                }
             }
         }
     }
