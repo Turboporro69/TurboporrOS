@@ -28,7 +28,7 @@ namespace TurboporrOS.Graphics
         {
             if (new Rectangle(mouseX, mouseY, 1, 1).IntersectsWith(new Rectangle(0, this.rows - 100, 100, 99)))
 
-                new Tab(0, 0);
+                new ConsoleTab(0, 0);
         }
     }
 }

@@ -35,6 +35,12 @@ namespace TurboporrOS.Graphics
             private set;
         }
 
+        public Boolean focused 
+        { 
+            get;
+            private set;
+        }
+
         public Tab (Int32 _x,Int32 _y)
         {
             Int32 x = _x, y = _y;
@@ -49,6 +55,8 @@ namespace TurboporrOS.Graphics
             this.X = x;
             this.Y = y;
             this.beingDragged = false;
+            if (Tab.tabs.Count == 0) this.focused = true;
+            else this.focused = false;
 
             this.draw();
 
@@ -97,6 +105,9 @@ namespace TurboporrOS.Graphics
             foreach (Tab tab in Tab.tabs)
             {
                 Rectangle mouseLocation=new Rectangle(mouseX, mouseY, 1, 1);
+
+                if (mouseLocation.IntersectsWith(new Rectangle(tab.X,tab.Y,Tab.defaultWindowSize,Tab.defaultWindowSize)))
+                    tab.focused = true;
 
                 if (mouseLocation.IntersectsWith(new Rectangle(tab.X, tab.Y, (Tab.defaultWindowSize - Tab.xBtnSize), Tab.windowTopPartSize)))
                 {
@@ -149,9 +160,34 @@ namespace TurboporrOS.Graphics
         }
         private void restorePixelBehindTab()
         {
-            foreach (Tuple<sys.Graphics.Point, Color> pixelData in this.pixelsBehindTab) {
+            foreach (Tuple<sys.Graphics.Point, Color> pixelData in this.pixelsBehindTab) 
                 Kernel.gui.canvas.DrawPoint(new Pen(pixelData.Item2), pixelData.Item1);
+        }
+
+        public void focus()
+        {
+            foreach (Tab tab in Tab.tabs)
+            {
+                if (tab.focused)
+                {
+                    tab.focused = false;
+                }
             }
+
+            this.focused = true;
+
+        }
+
+        public virtual void onKeyPress (sys.KeyEvent keyData) { }
+
+        public static void tryProcessKeyPress(sys.KeyEvent keyData) 
+        {
+            if (Tab.tabs.Count == 0) return;
+            
+            foreach (Tab tab in Tab.tabs)
+                if (tab.focused)
+                    tab.onKeyPress(keyData);
+            
         }
     }
 }

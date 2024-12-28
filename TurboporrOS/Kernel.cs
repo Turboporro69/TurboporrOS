@@ -35,11 +35,7 @@ namespace TurboporrOS
                 return;
             }
 
-            String response;
-            String input = Console.ReadLine();
-            response = this.commandManager.processInput(input);
-            Console.WriteLine(response);
-
+            Console.WriteLine(this.commandManager.processInput(Console.ReadLine()));
 
         }
     }

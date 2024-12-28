@@ -74,6 +74,11 @@ namespace TurboporrOS.Graphics
 
             }
 
+            KeyEvent keyData;
+            if (KeyboardManager.TryReadKey(out keyData))
+                Tab.tryProcessKeyPress(keyData);
+
+
             if (MouseManager.MouseState == MouseState.Left && this.prevMouseState != MouseState.Left)
             {
                 Tab.tryProcessTabLMBDown((Int32)MouseManager.X, (Int32)MouseManager.Y);

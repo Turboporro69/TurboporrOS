@@ -18,7 +18,9 @@ namespace TurboporrOS.Commands
                 "file rfile - Removes a file\n" +
                 "file cdir - Creates a directory\n" +
                 "file rdir - Removes a directory\n" +
-                "launchgui - Launches the GUI\n";
+                "file writestr - Writes a string to a file\n" +
+                "file readstr - Reads a string from a file\n" +
+                "launchgui - Launches the GUI \n(The GUI works very slowly, so if you try it, it won't crash. It just updates \nthe screen every 7 seconds)";
         }
     }
 }
