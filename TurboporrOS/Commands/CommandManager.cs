@@ -12,11 +12,12 @@ namespace TurboporrOS.Commands
 
         public CommandManager()
         {
-            this.commands = new List<Command>(4);
+            this.commands = new List<Command>(5);
             this.commands.Add(new Help("help"));
             this.commands.Add(new File("file"));
             this.commands.Add(new Clear("clear"));
             this.commands.Add(new LaunchGUI("launchgui"));
+            this.commands.Add(new LaunchTextEditor("launchtxt"));
         }
 
         public String processInput (String input)
